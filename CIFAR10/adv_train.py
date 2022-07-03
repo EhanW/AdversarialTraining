@@ -18,6 +18,7 @@ def get_args():
     parser.add_argument('--alpha', default=2/255, type=float)
     parser.add_argument('--steps', default=10, type=int)
     parser.add_argument('--random-start', default=True)
+    parser.add_argument('--restarts', default=1, type=int)
     parser.add_argument('--epochs', default=110, type=int)
     parser.add_argument('--lr', default=0.1, type=float)
     parser.add_argument('--momentum', default=0.9, type=float)
@@ -73,7 +74,9 @@ def pgd_test(loader):
         total += len(data)
         with torch.no_grad():
             correct += model(data).argmax(1).eq(target).sum().item()
-            adv_data = pgd_inf(model, data, target, args.epsilon, args.alpha, args.steps, args.random_start)
+            # adv_data = pgd_inf(model, data, target, args.epsilon, args.alpha, args.steps, args.random_start)
+            adv_data = pgd_inf_test(model, data, target, args.epsilon, args.alpha, args.steps, args.random_start,
+                                    args.restarts)
             adv_correct += model(adv_data).argmax(1).eq(target).sum().item()
     acc = correct/total
     adv_acc = adv_correct/total
