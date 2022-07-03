@@ -69,3 +69,38 @@ def trades_pgd_inf(model, data, target=None, epsilon=8/255, alpha=2/255, steps=1
     adv_data = delta.data + data.data
     model.train(training_mode)
     return adv_data
+
+
+def pgd_inf_test(model, data, target, epsilon=8/255, alpha=2/255, steps=10, random_start=True, restarts=5):
+    training_mode = model.training
+    model.eval()
+    max_loss = torch.zeros_like(target)
+    max_delta = torch.zeros_like(data)
+    for _ in range(restarts):
+        delta = torch.zeros_like(data, requires_grad=True)
+        if random_start:
+            delta.data.uniform_(-epsilon, epsilon)
+        for _ in range(steps):
+            with torch.enable_grad():
+                output = model(delta+data)
+                index = output.argmax(1).eq(target)
+                if index.sum().item() == 0:
+                    break
+                loss = F.cross_entropy(output, target)
+            grad = torch.autograd.grad(loss, [delta])[0].data
+
+            d = delta[index]
+            g = grad[index]
+            d = d + alpha*torch.sign(g)
+            d = torch.clamp(d, -epsilon, epsilon)
+            d = torch.clamp(d+data[index], 0, 1) - data[index]
+            delta.data[index] = d
+
+        with torch.no_grad():
+            loss = F.cross_entropy(model(data+delta), target, reduction='none')
+            index = loss >= max_loss
+            max_delta[index] = delta.data[index]
+            max_loss = torch.max(max_loss, loss)
+    adv_data = max_delta.data + data.data
+    model.train(training_mode)
+    return adv_data
