@@ -30,5 +30,11 @@ Scheduler: MultiStepLR with milestones [100, 105] and gamma 0.1.
 |ResNet44|78.21|49.54|
 |ResNet56|79.62|49.54|
 
-## Adversarial Distillation
+## Adversarial Distillation and Black-Box Attack
 ### Settings
+Models: a pre-trained target model and a proxy model.
+
+Loss function: the cross entropy loss between the proxy model logits and groud truth labels; 
+the KL-Divergence loss between the proxy model logits and the target model logtis;
+a hyper-parameter lambda to balance the above two losses.
+
