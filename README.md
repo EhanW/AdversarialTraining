@@ -2,8 +2,7 @@
 
 ## Networks
 ResNet, PreAct-ResNet, Resnet for CIFAR
-
-[He K, Zhang X, Ren S, et al. Deep residual learning for image recognition](https://arxiv.org/abs/1512.03385)
+[He K, Zhang X, Ren S, et al.](https://arxiv.org/abs/1512.03385)
 
 
 
