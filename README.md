@@ -38,3 +38,8 @@ Loss function: the cross entropy loss between the proxy model logits and groud t
 the KL-Divergence loss between the proxy model logits and the target model logtis;
 a hyper-parameter lambda to balance the above two losses.
 
+Attack: PGD with epsilon 8/255, alpha 2/255, steps 10 and random start.
+
+Optimizer: SGD with learning rate 0.1, momentume 0.9 and weight decay 5e-4.
+
+Scheduler: MultiStepLR with milestones [100, 105] and gamma 0.1.
