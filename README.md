@@ -15,6 +15,12 @@ MobileNet
 ## 
 
 ## Adversarial Training Results
+PGD-Attack: epsilon=8/255, alpha=2/255, steps=10, random start=True.
+
+Optimizer: SGD with learning rate 0.1, momentume 0.9 and weight decay 5e-4.
+
+Scheduler: MultiStep with milestones [100, 105] and gamma 0.1.
+
 |Arch|clean accuracy| adv accuracy|
 |----|----|----|
 |ResNet18|0|0|
