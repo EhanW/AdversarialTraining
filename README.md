@@ -34,8 +34,10 @@ Scheduler: MultiStepLR with milestones [100, 105] and gamma 0.1.
 ### Settings
 Models: a pre-trained target model and a proxy model.
 
+Knowledge distillation temperature: 5.
+
 Loss function: the cross entropy loss between the proxy model logits and groud truth labels; 
-the KL-Divergence loss between the proxy model logits and the target model logtis;
+the KL-Divergence loss between the distilled proxy model logits and the distilled target model logtis;
 a hyper-parameter lambda to balance the above two losses.
 
 Attack: PGD with epsilon 8/255, alpha 2/255, steps 10 and random start.
@@ -43,3 +45,15 @@ Attack: PGD with epsilon 8/255, alpha 2/255, steps 10 and random start.
 Optimizer: SGD with learning rate 0.1, momentume 0.9 and weight decay 5e-4.
 
 Scheduler: MultiStepLR with milestones [100, 105] and gamma 0.1.
+
+### Results
+Collums: target models.
+
+Rows: proxy models.
+
+Report: (proxy model clean acc, proxy model adv acc, transfer adv acc from proxy model to target model).
+
+|Arch|ResNet18| ResNet34|
+|----|----|----|
+|ResNet18||84.25, 52.69, 60.59|
+
