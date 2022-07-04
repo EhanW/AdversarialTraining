@@ -55,5 +55,5 @@ Report: (proxy model clean acc, proxy model adv acc, transfer adv acc from proxy
 
 |Arch|ResNet18| ResNet34|
 |----|----|----|
-|ResNet18||84.25, 52.69, 60.59|
+|ResNet18|84.25, 52.69, 60.59|0,0,0|
 
