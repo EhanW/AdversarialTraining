@@ -1,6 +1,6 @@
 from networks import *
 from data import get_train_loader, get_test_loader
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 from torch.optim import SGD
 from torch.optim.lr_scheduler import MultiStepLR
 import os
